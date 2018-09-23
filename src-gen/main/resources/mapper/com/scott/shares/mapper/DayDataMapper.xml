@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scott.shares.mapper.DayDataMapper">
+  <resultMap id="BaseResultMap" type="com.scott.shares.entity.DayData">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="share_code" jdbcType="VARCHAR" property="shareCode" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="max_price" jdbcType="DOUBLE" property="maxPrice" />
+    <result column="max_time" jdbcType="BIGINT" property="maxTime" />
+    <result column="min_price" jdbcType="DOUBLE" property="minPrice" />
+    <result column="min_time" jdbcType="BIGINT" property="minTime" />
+    <result column="today_start" jdbcType="DOUBLE" property="todayStart" />
+    <result column="today_end" jdbcType="DOUBLE" property="todayEnd" />
+    <result column="max_deal_num" jdbcType="BIGINT" property="maxDealNum" />
+    <result column="trend" jdbcType="DOUBLE" property="trend" />
+    <result column="max_trend" jdbcType="DOUBLE" property="maxTrend" />
+    <result column="max_trend_time" jdbcType="BIGINT" property="maxTrendTime" />
+    <result column="continu_increase" jdbcType="DOUBLE" property="continuIncrease" />
+    <result column="yesterday_id" jdbcType="BIGINT" property="yesterdayId" />
+    <result column="max_trend_price" jdbcType="DOUBLE" property="maxTrendPrice" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, share_code, update_time, max_price, max_time, min_price, min_time, today_start, 
+    today_end, max_deal_num, trend, max_trend, max_trend_time, continu_increase, yesterday_id, 
+    max_trend_price
+  </sql>
+  <select id="selectByExample" parameterType="com.scott.shares.entity.DayDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from day_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit gt 0">
+      limit #{limit}
+    </if>
+    <if test="offset gt 0">
+      offset #{offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from day_data
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from day_data
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.scott.shares.entity.DayDataExample">
+    delete from day_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.scott.shares.entity.DayData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into day_data (share_code, update_time, max_price, 
+      max_time, min_price, min_time, 
+      today_start, today_end, max_deal_num, 
+      trend, max_trend, max_trend_time, 
+      continu_increase, yesterday_id, max_trend_price
+      )
+    values (#{shareCode,jdbcType=VARCHAR}, #{updateTime,jdbcType=BIGINT}, #{maxPrice,jdbcType=DOUBLE}, 
+      #{maxTime,jdbcType=BIGINT}, #{minPrice,jdbcType=DOUBLE}, #{minTime,jdbcType=BIGINT}, 
+      #{todayStart,jdbcType=DOUBLE}, #{todayEnd,jdbcType=DOUBLE}, #{maxDealNum,jdbcType=BIGINT}, 
+      #{trend,jdbcType=DOUBLE}, #{maxTrend,jdbcType=DOUBLE}, #{maxTrendTime,jdbcType=BIGINT}, 
+      #{continuIncrease,jdbcType=DOUBLE}, #{yesterdayId,jdbcType=BIGINT}, #{maxTrendPrice,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.scott.shares.entity.DayData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into day_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shareCode != null">
+        share_code,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="maxPrice != null">
+        max_price,
+      </if>
+      <if test="maxTime != null">
+        max_time,
+      </if>
+      <if test="minPrice != null">
+        min_price,
+      </if>
+      <if test="minTime != null">
+        min_time,
+      </if>
+      <if test="todayStart != null">
+        today_start,
+      </if>
+      <if test="todayEnd != null">
+        today_end,
+      </if>
+      <if test="maxDealNum != null">
+        max_deal_num,
+      </if>
+      <if test="trend != null">
+        trend,
+      </if>
+      <if test="maxTrend != null">
+        max_trend,
+      </if>
+      <if test="maxTrendTime != null">
+        max_trend_time,
+      </if>
+      <if test="continuIncrease != null">
+        continu_increase,
+      </if>
+      <if test="yesterdayId != null">
+        yesterday_id,
+      </if>
+      <if test="maxTrendPrice != null">
+        max_trend_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shareCode != null">
+        #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="maxPrice != null">
+        #{maxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="maxTime != null">
+        #{maxTime,jdbcType=BIGINT},
+      </if>
+      <if test="minPrice != null">
+        #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="minTime != null">
+        #{minTime,jdbcType=BIGINT},
+      </if>
+      <if test="todayStart != null">
+        #{todayStart,jdbcType=DOUBLE},
+      </if>
+      <if test="todayEnd != null">
+        #{todayEnd,jdbcType=DOUBLE},
+      </if>
+      <if test="maxDealNum != null">
+        #{maxDealNum,jdbcType=BIGINT},
+      </if>
+      <if test="trend != null">
+        #{trend,jdbcType=DOUBLE},
+      </if>
+      <if test="maxTrend != null">
+        #{maxTrend,jdbcType=DOUBLE},
+      </if>
+      <if test="maxTrendTime != null">
+        #{maxTrendTime,jdbcType=BIGINT},
+      </if>
+      <if test="continuIncrease != null">
+        #{continuIncrease,jdbcType=DOUBLE},
+      </if>
+      <if test="yesterdayId != null">
+        #{yesterdayId,jdbcType=BIGINT},
+      </if>
+      <if test="maxTrendPrice != null">
+        #{maxTrendPrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.scott.shares.entity.DayDataExample" resultType="java.lang.Integer">
+    select count(*) from day_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update day_data
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.shareCode != null">
+        share_code = #{record.shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.maxPrice != null">
+        max_price = #{record.maxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.maxTime != null">
+        max_time = #{record.maxTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.minPrice != null">
+        min_price = #{record.minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.minTime != null">
+        min_time = #{record.minTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.todayStart != null">
+        today_start = #{record.todayStart,jdbcType=DOUBLE},
+      </if>
+      <if test="record.todayEnd != null">
+        today_end = #{record.todayEnd,jdbcType=DOUBLE},
+      </if>
+      <if test="record.maxDealNum != null">
+        max_deal_num = #{record.maxDealNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.trend != null">
+        trend = #{record.trend,jdbcType=DOUBLE},
+      </if>
+      <if test="record.maxTrend != null">
+        max_trend = #{record.maxTrend,jdbcType=DOUBLE},
+      </if>
+      <if test="record.maxTrendTime != null">
+        max_trend_time = #{record.maxTrendTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.continuIncrease != null">
+        continu_increase = #{record.continuIncrease,jdbcType=DOUBLE},
+      </if>
+      <if test="record.yesterdayId != null">
+        yesterday_id = #{record.yesterdayId,jdbcType=BIGINT},
+      </if>
+      <if test="record.maxTrendPrice != null">
+        max_trend_price = #{record.maxTrendPrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update day_data
+    set id = #{record.id,jdbcType=BIGINT},
+      share_code = #{record.shareCode,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=BIGINT},
+      max_price = #{record.maxPrice,jdbcType=DOUBLE},
+      max_time = #{record.maxTime,jdbcType=BIGINT},
+      min_price = #{record.minPrice,jdbcType=DOUBLE},
+      min_time = #{record.minTime,jdbcType=BIGINT},
+      today_start = #{record.todayStart,jdbcType=DOUBLE},
+      today_end = #{record.todayEnd,jdbcType=DOUBLE},
+      max_deal_num = #{record.maxDealNum,jdbcType=BIGINT},
+      trend = #{record.trend,jdbcType=DOUBLE},
+      max_trend = #{record.maxTrend,jdbcType=DOUBLE},
+      max_trend_time = #{record.maxTrendTime,jdbcType=BIGINT},
+      continu_increase = #{record.continuIncrease,jdbcType=DOUBLE},
+      yesterday_id = #{record.yesterdayId,jdbcType=BIGINT},
+      max_trend_price = #{record.maxTrendPrice,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.scott.shares.entity.DayData">
+    update day_data
+    <set>
+      <if test="shareCode != null">
+        share_code = #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="maxPrice != null">
+        max_price = #{maxPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="maxTime != null">
+        max_time = #{maxTime,jdbcType=BIGINT},
+      </if>
+      <if test="minPrice != null">
+        min_price = #{minPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="minTime != null">
+        min_time = #{minTime,jdbcType=BIGINT},
+      </if>
+      <if test="todayStart != null">
+        today_start = #{todayStart,jdbcType=DOUBLE},
+      </if>
+      <if test="todayEnd != null">
+        today_end = #{todayEnd,jdbcType=DOUBLE},
+      </if>
+      <if test="maxDealNum != null">
+        max_deal_num = #{maxDealNum,jdbcType=BIGINT},
+      </if>
+      <if test="trend != null">
+        trend = #{trend,jdbcType=DOUBLE},
+      </if>
+      <if test="maxTrend != null">
+        max_trend = #{maxTrend,jdbcType=DOUBLE},
+      </if>
+      <if test="maxTrendTime != null">
+        max_trend_time = #{maxTrendTime,jdbcType=BIGINT},
+      </if>
+      <if test="continuIncrease != null">
+        continu_increase = #{continuIncrease,jdbcType=DOUBLE},
+      </if>
+      <if test="yesterdayId != null">
+        yesterday_id = #{yesterdayId,jdbcType=BIGINT},
+      </if>
+      <if test="maxTrendPrice != null">
+        max_trend_price = #{maxTrendPrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.scott.shares.entity.DayData">
+    update day_data
+    set share_code = #{shareCode,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      max_price = #{maxPrice,jdbcType=DOUBLE},
+      max_time = #{maxTime,jdbcType=BIGINT},
+      min_price = #{minPrice,jdbcType=DOUBLE},
+      min_time = #{minTime,jdbcType=BIGINT},
+      today_start = #{todayStart,jdbcType=DOUBLE},
+      today_end = #{todayEnd,jdbcType=DOUBLE},
+      max_deal_num = #{maxDealNum,jdbcType=BIGINT},
+      trend = #{trend,jdbcType=DOUBLE},
+      max_trend = #{maxTrend,jdbcType=DOUBLE},
+      max_trend_time = #{maxTrendTime,jdbcType=BIGINT},
+      continu_increase = #{continuIncrease,jdbcType=DOUBLE},
+      yesterday_id = #{yesterdayId,jdbcType=BIGINT},
+      max_trend_price = #{maxTrendPrice,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,98 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>数据分析</title>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/flotr2-main.js"></script>
+<style type="text/css">
+    .tdBorder {
+        border-bottom: 1px solid #bbb;
+        height: 30px;
+    }
+    .backColor {
+        background-color: #ddd;
+    }
+    .todayStart {
+    }
+    .todayEnd {
+    }
+    .maxPrice {
+    }
+    .minPrice {
+    }
+    .todayStartT {
+    }
+    .todayEndT {
+    }
+    .maxPriceT {
+    }
+    .minPriceT {
+    }
+    .analyseChart {
+        width: 400px;
+        height: 400px;
+        float: left;
+        margin: 20px;
+    }
+    #table_div {
+        position: fixed;
+        padding: 10px 0;
+        top: 0;
+        z-index: 10;
+        background-color: white;
+        width: 100%;
+    }
+    #analyse_div {
+        position: relative;
+        top: 60px;
+        z-index: 1;
+    }
+</style>
+<link type="text/css" rel="stylesheet" href="chrome-extension://cpngackimfmofbokmjmljamhdncknpmg/style.css"><script type="text/javascript" charset="utf-8" src="chrome-extension://cpngackimfmofbokmjmljamhdncknpmg/js/page_context.js"></script></head>
+<body>
+    <div id="table_div">
+       <table id="analyse_table" border="0" cellspacing="0" cellpadding="0">
+           <tr>
+               <td width="1020px" id="td_statistics"></td>
+               <td width="60px" id="more_1"></td>
+               <td width="60px" id="more_2"></td>
+               <td width="60px" id="more_3"></td>
+               <td width="120px" id="more_4"></td>
+               <td width="60px" id="more_5"></td>
+               <td width="60px" id="more_6"></td>
+               <td width="60px" id="more_7"></td>
+           </tr>
+           <tr class="backColor">
+               <td width="1020px" id="td_statistics_15"></td>
+               <td width="60px" id="more_1_15"></td>
+               <td width="60px" id="more_2_15"></td>
+               <td width="60px" id="more_3_15"></td>
+               <td width="120px" id="more_4_15"></td>
+               <td width="60px" id="more_5_15"></td>
+               <td width="60px" id="more_6_15"></td>
+               <td width="60px" id="more_7_15"></td>
+           </tr>
+           <tr>
+               <td width="1020px" id="td_statistics_20"></td>
+               <td width="60px" id="more_1_20"></td>
+               <td width="60px" id="more_2_20"></td>
+               <td width="60px" id="more_3_20"></td>
+               <td width="120px" id="more_4_20"></td>
+               <td width="60px" id="more_5_20"></td>
+               <td width="60px" id="more_6_20"></td>
+               <td width="60px" id="more_7_20"></td>
+           </tr>
+       </table>
+    </div>
+    <div id="analyse_div">
+        <div id="analyse_1" class="analyseChart">
+        </div>
+        <div id="analyse_2" class="analyseChart">
+        </div>
+        <div id="analyse_3" class="analyseChart">
+        </div>
+        <div id="analyse_4" class="analyseChart">
+        </div>
+    </div>
+<script src="js/analyse.chart.js"></script>
+</body>
+</html>

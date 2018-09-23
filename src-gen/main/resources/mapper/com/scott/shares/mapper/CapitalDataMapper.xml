@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scott.shares.mapper.CapitalDataMapper" >
+  <resultMap id="BaseResultMap" type="com.scott.shares.entity.CapitalData" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="share_code" property="shareCode" jdbcType="VARCHAR" />
+    <result column="very_big" property="veryBig" jdbcType="DOUBLE" />
+    <result column="very_big_in" property="veryBigIn" jdbcType="DOUBLE" />
+    <result column="very_big_out" property="veryBigOut" jdbcType="DOUBLE" />
+    <result column="big" property="big" jdbcType="DOUBLE" />
+    <result column="big_in" property="bigIn" jdbcType="DOUBLE" />
+    <result column="big_out" property="bigOut" jdbcType="DOUBLE" />
+    <result column="middle" property="middle" jdbcType="DOUBLE" />
+    <result column="middle_in" property="middleIn" jdbcType="DOUBLE" />
+    <result column="middle_out" property="middleOut" jdbcType="DOUBLE" />
+    <result column="small" property="small" jdbcType="DOUBLE" />
+    <result column="small_in" property="smallIn" jdbcType="DOUBLE" />
+    <result column="small_out" property="smallOut" jdbcType="DOUBLE" />
+    <result column="current_capital" property="currentCapital" jdbcType="INTEGER" />
+    <result column="current_price" property="currentPrice" jdbcType="DOUBLE" />
+    <result column="change_ratio" property="changeRatio" jdbcType="DOUBLE" />
+    <result column="volume" property="volume" jdbcType="DOUBLE" />
+    <result column="turnover" property="turnover" jdbcType="DOUBLE" />
+    <result column="big_ratio" property="bigRatio" jdbcType="DOUBLE" />
+    <result column="net_amount" property="netAmount" jdbcType="DOUBLE" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, share_code, very_big, very_big_in, very_big_out, big, big_in, big_out, middle, 
+    middle_in, middle_out, small, small_in, small_out, current_capital, current_price, 
+    change_ratio, volume, turnover, big_ratio, net_amount, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.scott.shares.entity.CapitalDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from capital_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit gt 0" >
+      limit #{limit}
+    </if>
+    <if test="offset gt 0" >
+      offset #{offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from capital_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from capital_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.scott.shares.entity.CapitalDataExample" >
+    delete from capital_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.scott.shares.entity.CapitalData" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into capital_data (share_code, very_big, very_big_in, 
+      very_big_out, big, big_in, 
+      big_out, middle, middle_in, 
+      middle_out, small, small_in, 
+      small_out, current_capital, current_price, 
+      change_ratio, volume, turnover, 
+      big_ratio, net_amount, create_time
+      )
+    values (#{shareCode,jdbcType=VARCHAR}, #{veryBig,jdbcType=DOUBLE}, #{veryBigIn,jdbcType=DOUBLE}, 
+      #{veryBigOut,jdbcType=DOUBLE}, #{big,jdbcType=DOUBLE}, #{bigIn,jdbcType=DOUBLE}, 
+      #{bigOut,jdbcType=DOUBLE}, #{middle,jdbcType=DOUBLE}, #{middleIn,jdbcType=DOUBLE}, 
+      #{middleOut,jdbcType=DOUBLE}, #{small,jdbcType=DOUBLE}, #{smallIn,jdbcType=DOUBLE}, 
+      #{smallOut,jdbcType=DOUBLE}, #{currentCapital,jdbcType=INTEGER}, #{currentPrice,jdbcType=DOUBLE}, 
+      #{changeRatio,jdbcType=DOUBLE}, #{volume,jdbcType=DOUBLE}, #{turnover,jdbcType=DOUBLE}, 
+      #{bigRatio,jdbcType=DOUBLE}, #{netAmount,jdbcType=DOUBLE}, #{createTime,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.scott.shares.entity.CapitalData" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into capital_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shareCode != null" >
+        share_code,
+      </if>
+      <if test="veryBig != null" >
+        very_big,
+      </if>
+      <if test="veryBigIn != null" >
+        very_big_in,
+      </if>
+      <if test="veryBigOut != null" >
+        very_big_out,
+      </if>
+      <if test="big != null" >
+        big,
+      </if>
+      <if test="bigIn != null" >
+        big_in,
+      </if>
+      <if test="bigOut != null" >
+        big_out,
+      </if>
+      <if test="middle != null" >
+        middle,
+      </if>
+      <if test="middleIn != null" >
+        middle_in,
+      </if>
+      <if test="middleOut != null" >
+        middle_out,
+      </if>
+      <if test="small != null" >
+        small,
+      </if>
+      <if test="smallIn != null" >
+        small_in,
+      </if>
+      <if test="smallOut != null" >
+        small_out,
+      </if>
+      <if test="currentCapital != null" >
+        current_capital,
+      </if>
+      <if test="currentPrice != null" >
+        current_price,
+      </if>
+      <if test="changeRatio != null" >
+        change_ratio,
+      </if>
+      <if test="volume != null" >
+        volume,
+      </if>
+      <if test="turnover != null" >
+        turnover,
+      </if>
+      <if test="bigRatio != null" >
+        big_ratio,
+      </if>
+      <if test="netAmount != null" >
+        net_amount,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shareCode != null" >
+        #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="veryBig != null" >
+        #{veryBig,jdbcType=DOUBLE},
+      </if>
+      <if test="veryBigIn != null" >
+        #{veryBigIn,jdbcType=DOUBLE},
+      </if>
+      <if test="veryBigOut != null" >
+        #{veryBigOut,jdbcType=DOUBLE},
+      </if>
+      <if test="big != null" >
+        #{big,jdbcType=DOUBLE},
+      </if>
+      <if test="bigIn != null" >
+        #{bigIn,jdbcType=DOUBLE},
+      </if>
+      <if test="bigOut != null" >
+        #{bigOut,jdbcType=DOUBLE},
+      </if>
+      <if test="middle != null" >
+        #{middle,jdbcType=DOUBLE},
+      </if>
+      <if test="middleIn != null" >
+        #{middleIn,jdbcType=DOUBLE},
+      </if>
+      <if test="middleOut != null" >
+        #{middleOut,jdbcType=DOUBLE},
+      </if>
+      <if test="small != null" >
+        #{small,jdbcType=DOUBLE},
+      </if>
+      <if test="smallIn != null" >
+        #{smallIn,jdbcType=DOUBLE},
+      </if>
+      <if test="smallOut != null" >
+        #{smallOut,jdbcType=DOUBLE},
+      </if>
+      <if test="currentCapital != null" >
+        #{currentCapital,jdbcType=INTEGER},
+      </if>
+      <if test="currentPrice != null" >
+        #{currentPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="changeRatio != null" >
+        #{changeRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null" >
+        #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="turnover != null" >
+        #{turnover,jdbcType=DOUBLE},
+      </if>
+      <if test="bigRatio != null" >
+        #{bigRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="netAmount != null" >
+        #{netAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.scott.shares.entity.CapitalDataExample" resultType="java.lang.Integer" >
+    select count(*) from capital_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update capital_data
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.shareCode != null" >
+        share_code = #{record.shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.veryBig != null" >
+        very_big = #{record.veryBig,jdbcType=DOUBLE},
+      </if>
+      <if test="record.veryBigIn != null" >
+        very_big_in = #{record.veryBigIn,jdbcType=DOUBLE},
+      </if>
+      <if test="record.veryBigOut != null" >
+        very_big_out = #{record.veryBigOut,jdbcType=DOUBLE},
+      </if>
+      <if test="record.big != null" >
+        big = #{record.big,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bigIn != null" >
+        big_in = #{record.bigIn,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bigOut != null" >
+        big_out = #{record.bigOut,jdbcType=DOUBLE},
+      </if>
+      <if test="record.middle != null" >
+        middle = #{record.middle,jdbcType=DOUBLE},
+      </if>
+      <if test="record.middleIn != null" >
+        middle_in = #{record.middleIn,jdbcType=DOUBLE},
+      </if>
+      <if test="record.middleOut != null" >
+        middle_out = #{record.middleOut,jdbcType=DOUBLE},
+      </if>
+      <if test="record.small != null" >
+        small = #{record.small,jdbcType=DOUBLE},
+      </if>
+      <if test="record.smallIn != null" >
+        small_in = #{record.smallIn,jdbcType=DOUBLE},
+      </if>
+      <if test="record.smallOut != null" >
+        small_out = #{record.smallOut,jdbcType=DOUBLE},
+      </if>
+      <if test="record.currentCapital != null" >
+        current_capital = #{record.currentCapital,jdbcType=INTEGER},
+      </if>
+      <if test="record.currentPrice != null" >
+        current_price = #{record.currentPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.changeRatio != null" >
+        change_ratio = #{record.changeRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="record.volume != null" >
+        volume = #{record.volume,jdbcType=DOUBLE},
+      </if>
+      <if test="record.turnover != null" >
+        turnover = #{record.turnover,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bigRatio != null" >
+        big_ratio = #{record.bigRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="record.netAmount != null" >
+        net_amount = #{record.netAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update capital_data
+    set id = #{record.id,jdbcType=INTEGER},
+      share_code = #{record.shareCode,jdbcType=VARCHAR},
+      very_big = #{record.veryBig,jdbcType=DOUBLE},
+      very_big_in = #{record.veryBigIn,jdbcType=DOUBLE},
+      very_big_out = #{record.veryBigOut,jdbcType=DOUBLE},
+      big = #{record.big,jdbcType=DOUBLE},
+      big_in = #{record.bigIn,jdbcType=DOUBLE},
+      big_out = #{record.bigOut,jdbcType=DOUBLE},
+      middle = #{record.middle,jdbcType=DOUBLE},
+      middle_in = #{record.middleIn,jdbcType=DOUBLE},
+      middle_out = #{record.middleOut,jdbcType=DOUBLE},
+      small = #{record.small,jdbcType=DOUBLE},
+      small_in = #{record.smallIn,jdbcType=DOUBLE},
+      small_out = #{record.smallOut,jdbcType=DOUBLE},
+      current_capital = #{record.currentCapital,jdbcType=INTEGER},
+      current_price = #{record.currentPrice,jdbcType=DOUBLE},
+      change_ratio = #{record.changeRatio,jdbcType=DOUBLE},
+      volume = #{record.volume,jdbcType=DOUBLE},
+      turnover = #{record.turnover,jdbcType=DOUBLE},
+      big_ratio = #{record.bigRatio,jdbcType=DOUBLE},
+      net_amount = #{record.netAmount,jdbcType=DOUBLE},
+      create_time = #{record.createTime,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.scott.shares.entity.CapitalData" >
+    update capital_data
+    <set >
+      <if test="shareCode != null" >
+        share_code = #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="veryBig != null" >
+        very_big = #{veryBig,jdbcType=DOUBLE},
+      </if>
+      <if test="veryBigIn != null" >
+        very_big_in = #{veryBigIn,jdbcType=DOUBLE},
+      </if>
+      <if test="veryBigOut != null" >
+        very_big_out = #{veryBigOut,jdbcType=DOUBLE},
+      </if>
+      <if test="big != null" >
+        big = #{big,jdbcType=DOUBLE},
+      </if>
+      <if test="bigIn != null" >
+        big_in = #{bigIn,jdbcType=DOUBLE},
+      </if>
+      <if test="bigOut != null" >
+        big_out = #{bigOut,jdbcType=DOUBLE},
+      </if>
+      <if test="middle != null" >
+        middle = #{middle,jdbcType=DOUBLE},
+      </if>
+      <if test="middleIn != null" >
+        middle_in = #{middleIn,jdbcType=DOUBLE},
+      </if>
+      <if test="middleOut != null" >
+        middle_out = #{middleOut,jdbcType=DOUBLE},
+      </if>
+      <if test="small != null" >
+        small = #{small,jdbcType=DOUBLE},
+      </if>
+      <if test="smallIn != null" >
+        small_in = #{smallIn,jdbcType=DOUBLE},
+      </if>
+      <if test="smallOut != null" >
+        small_out = #{smallOut,jdbcType=DOUBLE},
+      </if>
+      <if test="currentCapital != null" >
+        current_capital = #{currentCapital,jdbcType=INTEGER},
+      </if>
+      <if test="currentPrice != null" >
+        current_price = #{currentPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="changeRatio != null" >
+        change_ratio = #{changeRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="volume != null" >
+        volume = #{volume,jdbcType=DOUBLE},
+      </if>
+      <if test="turnover != null" >
+        turnover = #{turnover,jdbcType=DOUBLE},
+      </if>
+      <if test="bigRatio != null" >
+        big_ratio = #{bigRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="netAmount != null" >
+        net_amount = #{netAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.scott.shares.entity.CapitalData" >
+    update capital_data
+    set share_code = #{shareCode,jdbcType=VARCHAR},
+      very_big = #{veryBig,jdbcType=DOUBLE},
+      very_big_in = #{veryBigIn,jdbcType=DOUBLE},
+      very_big_out = #{veryBigOut,jdbcType=DOUBLE},
+      big = #{big,jdbcType=DOUBLE},
+      big_in = #{bigIn,jdbcType=DOUBLE},
+      big_out = #{bigOut,jdbcType=DOUBLE},
+      middle = #{middle,jdbcType=DOUBLE},
+      middle_in = #{middleIn,jdbcType=DOUBLE},
+      middle_out = #{middleOut,jdbcType=DOUBLE},
+      small = #{small,jdbcType=DOUBLE},
+      small_in = #{smallIn,jdbcType=DOUBLE},
+      small_out = #{smallOut,jdbcType=DOUBLE},
+      current_capital = #{currentCapital,jdbcType=INTEGER},
+      current_price = #{currentPrice,jdbcType=DOUBLE},
+      change_ratio = #{changeRatio,jdbcType=DOUBLE},
+      volume = #{volume,jdbcType=DOUBLE},
+      turnover = #{turnover,jdbcType=DOUBLE},
+      big_ratio = #{bigRatio,jdbcType=DOUBLE},
+      net_amount = #{netAmount,jdbcType=DOUBLE},
+      create_time = #{createTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

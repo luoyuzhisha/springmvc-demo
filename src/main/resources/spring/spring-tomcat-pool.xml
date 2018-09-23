@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        ">
+
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>file:/data/program/shares/config/db.properties</value>
+        </property>
+    </bean>
+
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+          destroy-method="close">
+        <property name="poolProperties">
+            <bean class="org.apache.tomcat.jdbc.pool.PoolProperties">
+                <property name="url" value="${url}"/>
+                <property name="driverClassName" value="${driverClassName}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+                <!--注册池JMX,默认：true -->
+                <property name="jmxEnabled" value="false"/>
+                <!--检查连接死活的时间间隔，单位：毫秒 -->
+                <property name="validationInterval" value="30000"/>
+                <!--指定连接进入空闲状态时是否经过空闲对象驱逐进程的校验，如果校验未通过，则该连接被连接池断掉
+                 值为true,则validationQuery参数必须为一个非空字串 -->
+                <property name="testWhileIdle" value="false"/>
+                <!--指定连接返回到池中是时是否经过校验
+                 值为true,则validationQuery参数必须为一个非空字串 -->
+                <property name="testOnReturn" value="false"/>
+                <!--指定连接被调用时是否经过校验，如果校验未通过，则该连接被连接池断掉，并由连接池尝试调用另一个连接
+                 值为true,则validationQuery参数必须为一个非空字串-->
+                <property name="testOnBorrow" value="true"/>
+                <!--在连接返回给调用者前用于校验连接是否有效的SQL语句，如果指定了SQL语句，则必须为一个SELECT语句，且至少有一行结果-->
+                <property name="validationQuery" value="select 1"/>
+                <!--连接池处于活动状态的数据库连接的最大数目，0表示不限制,表示最大并发-->
+                <property name="maxActive" value="${maxActive}"/>
+                <!--初始化连接数-->
+                <property name="initialSize" value="${initialSize}"/>
+                <!--连接池中连接用完时，新的请求的等待时间（即等待别的连接空闲），超时返回异常，毫秒-->
+                <property name="maxWait" value="60000"/>
+                <!--以毫秒表示空闲对象驱逐进程由休眠状态进入运行状态的数值，值为非正整时表示不运行任何空闲对象驱逐进程
+                 运行判断连接超时任务的时间间隔-->
+                <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+                <!--以毫秒表示连接被空闲对象驱逐进程驱逐前在池中保持空闲状态的最小时间，连接的超时时间，默认为半小时-->
+                <property name="minEvictableIdleTimeMillis" value="80000"/>
+                <!--连接池检查每个空闲对象驱逐进程的对象数量
+                    <property name="numTestPerEvictionRun" value="3"/>
+                -->
+                <!--连接池处于空闲状态的数据库连接的最小数目，低于此数值将会创建所欠缺的连接，设0无限制-->
+                <property name="minIdle" value="${minActive}"/>
+                <!--连接池处于空闲状态的数据库连接的最大数目，取非正整数表示不受限制，超过此数值时多余的空闲连接将会被释放-->
+                <property name="maxIdle" value="${maxWait}"/>
+                <!--当清除无效连接时是否在日志中记录清除信息的标志-->
+                 <property name="logAbandoned" value="false"/>
+                 <!--是否清除已经超过 removeAbandonedTimeout 设置的无效连接，自动回收超时连接
+                  启动机制：getNumActive() > getMaxActive() - 3 和 getNumIdle() < 2
+                  假设maxActive=20,而当前18个活动连接，1个空闲连接，机制将会启动
+                  但是只有在活动连接没有使用的时长超过“removeAbandonedTimeout”（默认300秒），的连接将被清除-->
+                <property name="removeAbandoned" value="true"/>
+                <!--以秒表示清除无效连接的时限，自我中断时间，单位秒-->
+                <property name="removeAbandonedTimeout" value="60"/>
+                <!--设置拦截器，默认为空
+                 ConnectionState：跟踪自动提交，只读目录和事务隔离级别
+                 StatementFinalizer：跟踪打开的语句，并关闭连接时的返回到池中
+                 -->
+                <property name="jdbcInterceptors" value="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"/>
+            </bean>
+        </property>
+    </bean>
+</beans>

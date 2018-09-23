@@ -1,0 +1,421 @@
+
+<html>
+<head>
+<title>寸光系统监视器</title>
+<meta http-equiv="pragma" content="Pragma">
+<meta http-equiv="cache-control" content="public">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="css/bootstrap.css">
+<link rel="stylesheet" href="css/bootstrapSwitch.css">
+<link rel="stylesheet" href="css/bootstrap-progressbar-3.3.0.css">
+<link rel="stylesheet" href="css/shares.css">
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/bootstrapSwitch.js"></script>
+<script src="js/md5.js"></script>
+<script src="js/shares.js"></script>
+</head>
+<body>
+<div id="head_div" class="row">
+    <div class="col-xs-4 col-sm-4"></div>
+    <div class="col-xs-4 col-sm-4 text-center">
+        <h3><strong>寸光系统监视器</strong></h3>
+        <span class="title-time" id="title_time"></span> </div>
+    <!-- Optional: clear the XS cols if their content doesn't match in height -->
+    <div class="clearfix visible-xs"></div>
+    <div class="col-xs-4 col-sm-4"></div>
+</div>
+<div id="body_div" class="row share-body">
+    <div class="bodyDiv">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                系统运行状态
+            </div>
+            <div class="panel-body">
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">系统状态: </div>
+                    <div class="col-xs-12 col-sm-10" id="sys_runType">
+                        停止
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">系统类型: </div>
+                    <div class="col-xs-12 col-sm-10" id="sys_type">
+                        Linux
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">系统版本: </div>
+                    <div class="col-xs-12 col-sm-10" id="sys_version">
+                        V2.2.2014021515
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2" id="update_time_str">更新时间: </div>
+                    <div class="col-xs-12 col-sm-10" id="update_time">
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">运行模式: </div>
+                    <div class="col-xs-12 col-sm-10" id="running_type">未知模式
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">购买阀值: </div>
+                    <div class="col-xs-12 col-sm-10" id="buy_trend">未知
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">线程数: </div>
+                    <div class="col-xs-12 col-sm-2" id="thread_count">
+                        0
+                    </div>
+                    <div class="col-xs-12 col-sm-8" id="thread_control">
+                        <button class="btn btn-default btn-in-div" type="button" id="sys_start_btn">启动</button>
+                        <button class="btn btn-default btn-in-div" type="button" id="sys_stop_btn">停止</button>
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">实时队列: </div>
+                    <div class="col-xs-12 col-sm-10" id="save_primary_data_count">
+                        0 个
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">异常数量: </div>
+                    <div class="col-xs-12 col-sm-10" id="exception_count">
+                        0 个
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">最新异常: </div>
+                    <div class="col-xs-12 col-sm-10" id="new_exceptions">
+                        数据服务器已崩溃！
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">最多异常: </div>
+                    <div class="col-xs-12 col-sm-10" id="most_exceptions">
+                        数据服务器已崩溃！
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">异常线程: </div>
+                    <div class="col-xs-12 col-sm-10" id="exception_thread">
+                        无
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">CPU: </div>
+                    <div class="col-xs-12 col-sm-10">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 1%" id="cup_progress"> <span>1</span>%used </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">内存: </div>
+                    <div class="col-xs-12 col-sm-10">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 1%" id="memory_progress"> <span>1</span>%used </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row min-height-40">
+                    <div class="col-xs-12 col-sm-2">硬盘剩余: </div>
+                    <div class="col-xs-12 col-sm-10" id="freeDisk">
+                        N/A
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            股票数据
+          </div>
+          <div class="panel-body">
+            <div class="row min-height-40">
+                <div class="col-xs-12 col-sm-2">初始资金: </div>
+                <div class="col-xs-12 col-sm-10" id="start_money">
+                    0 元
+                </div>
+            </div>
+            <div class="row min-height-40">
+                <div class="col-xs-12 col-sm-2">总资金: </div>
+                <div class="col-xs-12 col-sm-10" id="all_money">
+                    0 元
+                </div>
+            </div>
+            <div class="row min-height-40">
+                <div class="col-xs-12 col-sm-2">流动资金: </div>
+                <div class="col-xs-12 col-sm-10" id="floating_money">
+                    0 元
+                </div>
+            </div>
+            <!--<div class="height-40">
+                <div class="col-xs-12 col-sm-2">昨日盈利: </div>
+                <div class="col-xs-12 col-sm-10" id="yesterday_growing">
+                    0%
+                </div>
+            </div>
+            <div class="height-40">
+                <div class="col-xs-12 col-sm-2">今日盈利: </div>
+                <div class="col-xs-12 col-sm-10" id="today_growing">
+                    0%
+                </div>
+            </div>-->
+            <div class="row min-height-40">
+                <div class="col-xs-12 col-sm-2">总盈利: </div>
+                <div class="col-xs-12 col-sm-10" id="all_growing">
+                    <span>0%</span>
+                </div>
+            </div>
+            <div class="row min-height-40">
+                <div class="col-xs-12 col-sm-2">新鲜度: </div>
+                <div class="col-xs-12 col-sm-10" id="best_shares_hold_time">0
+                </div>
+            </div>
+            <div class="row min-height-40">
+                <div class="col-xs-12 col-sm-2 padding-top-10">今日旺股: </div>
+                <div class="col-xs-12 col-sm-10" id="today_best">
+                    <div class="height-40">无</div>
+                </div>
+            </div>
+            <div class="row min-height-40">
+                <div class="col-xs-12 col-sm-2 padding-top-10">今日购买: </div>
+                <div class="col-xs-12 col-sm-10" id="today_buy">
+                    <div class="height-40">无</div>
+                </div>
+            </div>
+        <div class="row min-height-40">
+                <div class="col-xs-12 col-sm-2 padding-top-10">今日卖出: </div>
+                <div class="col-xs-12 col-sm-10" id="today_sell">
+                    <div class="height-40">无</div>
+                </div>
+            </div>
+        <!--<div class="row min-height-40">
+                <div class="col-xs-12 col-sm-2 padding-top-10">昨日购买: </div>
+                <div class="col-xs-12 col-sm-10 share_items" id="yesterday_buy">
+                    <div class="height-40">无</div>
+                </div>
+            </div>-->
+            <div class="row min-height-40">
+                <div class="col-xs-12 col-sm-2 padding-top-10">所有持仓: </div>
+                <div class="col-xs-12 col-sm-10" id="total_buy">
+                    <div class="height-40">无</div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            操作区
+          </div>
+          <div class="panel-body">
+            <div class="height-40 hide">
+                <div class="col-xs-12 col-sm-2">系统开关: </div>
+                <div class="col-xs-12 col-sm-10 height-28">
+                    <div class="switch" data-on="success" data-off="danger">
+                        <input type="checkbox" id="sys_status" checked />
+                    </div>
+                </div>
+            </div>
+            <div class="height-40">
+                <div class="col-xs-12 col-sm-2">买入股票: </div>
+                <div class="col-xs-12 col-sm-10 height-28">
+                    <div class="input-group">
+                      <span class="input-group-addon">sh</span>
+                      <input type="text" class="form-control" id="sys_buy_share_code">
+                      <span class="input-group-addon">价格</span>
+                      <input type="text" class="form-control" id="sys_buy_price">
+                      <span class="input-group-addon">买手</span>
+                      <input type="text" class="form-control" id="sys_buy_num">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="sys_buy_share_button">购买</button>
+                      </span>
+                    </div><!-- /input-group -->
+                </div>
+            </div>
+            <div class="height-40">
+                <div class="col-xs-12 col-sm-2">卖出股票: </div>
+                <div class="col-xs-12 col-sm-10 height-28">
+                    <div class="input-group">
+                      <span class="input-group-addon">sh</span>
+                      <input type="text" class="form-control" id="sys_sell_share_code" />
+                      <span class="input-group-addon">价格</span>
+                      <input type="text" class="form-control" id="sys_sell_price" />
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="sys_sell_share_button">卖出</button>
+                      </span>
+                    </div><!-- /input-group -->
+                </div>
+            </div>
+            <div class="height-40">
+                <div class="col-xs-12 col-sm-2">回退买入: </div>
+                <div class="col-xs-12 col-sm-10 height-28">
+                    <div class="input-group">
+                      <span class="input-group-addon">sh</span>
+                      <input type="text" class="form-control" id="sys_reback_buy_share_code" />
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="sys_reback_buy_share_button">回退</button>
+                      </span>
+                    </div><!-- /input-group -->
+                </div>
+            </div>
+            <div class="height-40">
+                <div class="col-xs-12 col-sm-2">回退卖出: </div>
+                <div class="col-xs-12 col-sm-10 height-28">
+                    <div class="input-group">
+                      <span class="input-group-addon">sh</span>
+                      <input type="text" class="form-control" id="sys_reback_sell_share_code" />
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="sys_reback_sell_share_button">回退</button>
+                      </span>
+                    </div><!-- /input-group -->
+                </div>
+            </div>
+            <div class="height-40">
+                <div class="col-xs-12 col-sm-2">重置金钱: </div>
+                <div class="col-xs-12 col-sm-10 height-28">
+                    <div class="input-group">
+                      <input type="text" class="form-control" id="sys_init_money" />
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="sys_init_money_button">重置</button>
+                      </span>
+                    </div><!-- /input-group -->
+                </div>
+            </div>
+            <div class="height-40">
+                <div class="col-xs-12 col-sm-2">充值金钱: </div>
+                <div class="col-xs-12 col-sm-10 height-28">
+                    <div class="input-group">
+                      <span class="input-group-addon">sh</span>
+                      <input type="text" class="form-control" id="sys_add_money" />
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="sys_add_money_button">充值</button>
+                      </span>
+                    </div><!-- /input-group -->
+                </div>
+            </div>
+            <div class="height-40">
+                <div class="col-xs-12 col-sm-2">指令结果:</div>
+                <div class="col-xs-12 col-sm-10 height-28" id="order_result">
+                    无
+                </div>
+            </div>
+            <div class="height-40">
+                <div class="col-xs-12 col-sm-2">重置股票:</div>
+                <div class="col-xs-12 col-sm-2 height-28">
+                    <button class="btn btn-default btn-in-div" type="button" id="sys_init_btn">重置</button>
+                </div>
+                <div class="col-xs-12 col-sm-8 height-28" id="init_status_div" >
+                    <div class="progress">
+                        <div id="init_status" class="progress-bar progress-bar-striped active" role="progressbar" data-transitiongoal-backup="0" data-transitiongoal="0" aria-valuenow="0" style="width: 0%;"><span>0</span>%</div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+               导航区
+            </div>
+            <div class="panel-body">
+                <div class="height-80">
+                    <a target="_blank" href="analyse.html">分析算法数据（通过购买数据）</a> | 
+                    <a target="_blank" href="analyseChart.html">分析算法数据（通过购买数据）（图表）</a> | 
+                    <a target="_blank" href="analyseBuys.html">分析购买数据（图表）</a> | 
+                    <a target="_blank" href="analyseDayData.html">分析每日trend数据（图表）</a> | 
+                    <a target="_blank" href="analyseHistory.html">分析算法数据（通过交易数据）</a> | 
+                    <a target="_blank" href="analyseHistoryChart.html">分析算法数据（通过交易数据）（图表）</a> | 
+                    <a target="_blank" href="simulation.html">时间模拟器</a> |
+                    <a target="_blank" href="analyseTrend.html">模拟Trend买卖</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 股票详细信息弹窗部分开始 -->
+<div class="modal fade" id="show_share_modal" tabindex="-1" role="dialog" aria-labelledby="deatailModalLabe" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="deatailModalLabe">详细</h4>
+            </div>
+            <div class="modal-body">
+                <div id="show_share_mode_share_code">股票代码：<span>006135</span></div>
+                <div id="show_share_mode_share_name">股票名称：<span>华夏神器</span></div>
+                <div id="show_share_mode_buy_time">购买日期：<span>2014/03/07 09:45</span></div>
+                <div id="show_share_mode_buy_price">购买价格：<span>8.68</span></div>
+                <div id="show_share_mode_buy_cout">购买数量：<span>23</span></div>
+                <div id="show_share_mode_buy_cost">购买花费：<span>199</span></div>
+                <div id="show_share_mode_sell_time">卖出时间：<span></span></div>
+                <div id="show_share_mode_sell_price">卖出价格：<span></span></div>
+                <div id="show_share_mode_pre_sell_price">预售价格：<span></span></div>
+                <div id="show_share_mode_pre_trend">预计盈利：<span></span>%（不含税）</div>
+                <div id="show_share_mode_growing">盈利：<span></span></div>
+                <div id="show_share_mode_now_price">目前价格：<span>9.23</span></div>
+                <div id="show_share_mode_trend">盈利指数：<span>9.23</span>%（不含税）</div>
+                <div id="show_share_mode_profix">盈利：<span>9.23</span>（已扣说）</div>
+                <div id="show_share_mode_flash" class="flashDiv"><span></span></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal --> 
+<!-- 股票详细信息弹窗部分结束 -->   
+
+<!-- 交易弹窗部分开始 -->
+<div class="modal fade" id="deal_share_modal" tabindex="-1" role="dialog" aria-labelledby="dealModalLabe" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="dealModalLabe">结果</h4>
+            </div>
+            <div class="modal-body">
+                <div class="height-28" id="deal_share_mode_share_code">股票代码：<span>006135</span></div>
+                <div class="height-28" id="deal_share_mode_order">指令类型：<span>购买</span></div>
+                <div class="height-28" id="deal_share_mode_result">结果：<span>成功</span></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="deal_submit">提交</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal --> 
+<!-- 交易弹窗部分结束 --> 
+
+<!-- 错误弹窗部分开始 -->
+<div class="modal fade" id="error_modal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabe" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body error-content" id="error_content">
+                <span class="error-mgs"></span><span id="closeErrorMoal" class="showHand">[不再提示]</span>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal --> 
+<!-- 错误弹窗部分结束 --> 
+
+<!-- 常规弹窗部分开始 -->
+<div class="modal fade" id="msg_modal" tabindex="-1" role="dialog" aria-labelledby="msgModalLabe" aria-hidden="true" data-backdrop="static">
+    <button type="button" class="close" data-dismiss="dialog" aria-label="Close"><span aria-hidden="true">×</span></button>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body" id="msg_content">
+                <strong>执行结果：</strong><span class="msg-mgs"></span>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal --> 
+<!-- 常规弹窗部分结束 --> 
+
+</body>
+</html>

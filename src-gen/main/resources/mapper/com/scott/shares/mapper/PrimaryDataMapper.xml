@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scott.shares.mapper.PrimaryDataMapper">
+  <resultMap id="BaseResultMap" type="com.scott.shares.entity.PrimaryData">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="share_code" jdbcType="VARCHAR" property="shareCode" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="now_price" jdbcType="DOUBLE" property="nowPrice" />
+    <result column="last_end" jdbcType="DOUBLE" property="lastEnd" />
+    <result column="today_start" jdbcType="DOUBLE" property="todayStart" />
+    <result column="now_alter_price" jdbcType="DOUBLE" property="nowAlterPrice" />
+    <result column="today_low_price" jdbcType="DOUBLE" property="todayLowPrice" />
+    <result column="today_hight_price" jdbcType="DOUBLE" property="todayHightPrice" />
+    <result column="now_alter_percent" jdbcType="DOUBLE" property="nowAlterPercent" />
+    <result column="deal_num" jdbcType="DOUBLE" property="dealNum" />
+    <result column="deal_money" jdbcType="DOUBLE" property="dealMoney" />
+    <result column="bids_price" jdbcType="DOUBLE" property="bidsPrice" />
+    <result column="sale_price" jdbcType="DOUBLE" property="salePrice" />
+    <result column="sale_proportion" jdbcType="INTEGER" property="saleProportion" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, share_code, update_time, now_price, last_end, today_start, now_alter_price, today_low_price, 
+    today_hight_price, now_alter_percent, deal_num, deal_money, bids_price, sale_price, 
+    sale_proportion
+  </sql>
+  <select id="selectByExample" parameterType="com.scott.shares.entity.PrimaryDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from primary_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit gt 0">
+      limit #{limit}
+    </if>
+    <if test="offset gt 0">
+      offset #{offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from primary_data
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from primary_data
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.scott.shares.entity.PrimaryDataExample">
+    delete from primary_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.scott.shares.entity.PrimaryData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into primary_data (share_code, update_time, now_price, 
+      last_end, today_start, now_alter_price, 
+      today_low_price, today_hight_price, now_alter_percent, 
+      deal_num, deal_money, bids_price, 
+      sale_price, sale_proportion)
+    values (#{shareCode,jdbcType=VARCHAR}, #{updateTime,jdbcType=BIGINT}, #{nowPrice,jdbcType=DOUBLE}, 
+      #{lastEnd,jdbcType=DOUBLE}, #{todayStart,jdbcType=DOUBLE}, #{nowAlterPrice,jdbcType=DOUBLE}, 
+      #{todayLowPrice,jdbcType=DOUBLE}, #{todayHightPrice,jdbcType=DOUBLE}, #{nowAlterPercent,jdbcType=DOUBLE}, 
+      #{dealNum,jdbcType=DOUBLE}, #{dealMoney,jdbcType=DOUBLE}, #{bidsPrice,jdbcType=DOUBLE}, 
+      #{salePrice,jdbcType=DOUBLE}, #{saleProportion,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.scott.shares.entity.PrimaryData">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into primary_data
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shareCode != null">
+        share_code,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="nowPrice != null">
+        now_price,
+      </if>
+      <if test="lastEnd != null">
+        last_end,
+      </if>
+      <if test="todayStart != null">
+        today_start,
+      </if>
+      <if test="nowAlterPrice != null">
+        now_alter_price,
+      </if>
+      <if test="todayLowPrice != null">
+        today_low_price,
+      </if>
+      <if test="todayHightPrice != null">
+        today_hight_price,
+      </if>
+      <if test="nowAlterPercent != null">
+        now_alter_percent,
+      </if>
+      <if test="dealNum != null">
+        deal_num,
+      </if>
+      <if test="dealMoney != null">
+        deal_money,
+      </if>
+      <if test="bidsPrice != null">
+        bids_price,
+      </if>
+      <if test="salePrice != null">
+        sale_price,
+      </if>
+      <if test="saleProportion != null">
+        sale_proportion,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shareCode != null">
+        #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="nowPrice != null">
+        #{nowPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="lastEnd != null">
+        #{lastEnd,jdbcType=DOUBLE},
+      </if>
+      <if test="todayStart != null">
+        #{todayStart,jdbcType=DOUBLE},
+      </if>
+      <if test="nowAlterPrice != null">
+        #{nowAlterPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="todayLowPrice != null">
+        #{todayLowPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="todayHightPrice != null">
+        #{todayHightPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="nowAlterPercent != null">
+        #{nowAlterPercent,jdbcType=DOUBLE},
+      </if>
+      <if test="dealNum != null">
+        #{dealNum,jdbcType=DOUBLE},
+      </if>
+      <if test="dealMoney != null">
+        #{dealMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bidsPrice != null">
+        #{bidsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="salePrice != null">
+        #{salePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="saleProportion != null">
+        #{saleProportion,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.scott.shares.entity.PrimaryDataExample" resultType="java.lang.Integer">
+    select count(*) from primary_data
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update primary_data
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.shareCode != null">
+        share_code = #{record.shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.nowPrice != null">
+        now_price = #{record.nowPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.lastEnd != null">
+        last_end = #{record.lastEnd,jdbcType=DOUBLE},
+      </if>
+      <if test="record.todayStart != null">
+        today_start = #{record.todayStart,jdbcType=DOUBLE},
+      </if>
+      <if test="record.nowAlterPrice != null">
+        now_alter_price = #{record.nowAlterPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.todayLowPrice != null">
+        today_low_price = #{record.todayLowPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.todayHightPrice != null">
+        today_hight_price = #{record.todayHightPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.nowAlterPercent != null">
+        now_alter_percent = #{record.nowAlterPercent,jdbcType=DOUBLE},
+      </if>
+      <if test="record.dealNum != null">
+        deal_num = #{record.dealNum,jdbcType=DOUBLE},
+      </if>
+      <if test="record.dealMoney != null">
+        deal_money = #{record.dealMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.bidsPrice != null">
+        bids_price = #{record.bidsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.salePrice != null">
+        sale_price = #{record.salePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.saleProportion != null">
+        sale_proportion = #{record.saleProportion,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update primary_data
+    set id = #{record.id,jdbcType=BIGINT},
+      share_code = #{record.shareCode,jdbcType=VARCHAR},
+      update_time = #{record.updateTime,jdbcType=BIGINT},
+      now_price = #{record.nowPrice,jdbcType=DOUBLE},
+      last_end = #{record.lastEnd,jdbcType=DOUBLE},
+      today_start = #{record.todayStart,jdbcType=DOUBLE},
+      now_alter_price = #{record.nowAlterPrice,jdbcType=DOUBLE},
+      today_low_price = #{record.todayLowPrice,jdbcType=DOUBLE},
+      today_hight_price = #{record.todayHightPrice,jdbcType=DOUBLE},
+      now_alter_percent = #{record.nowAlterPercent,jdbcType=DOUBLE},
+      deal_num = #{record.dealNum,jdbcType=DOUBLE},
+      deal_money = #{record.dealMoney,jdbcType=DOUBLE},
+      bids_price = #{record.bidsPrice,jdbcType=DOUBLE},
+      sale_price = #{record.salePrice,jdbcType=DOUBLE},
+      sale_proportion = #{record.saleProportion,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.scott.shares.entity.PrimaryData">
+    update primary_data
+    <set>
+      <if test="shareCode != null">
+        share_code = #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="nowPrice != null">
+        now_price = #{nowPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="lastEnd != null">
+        last_end = #{lastEnd,jdbcType=DOUBLE},
+      </if>
+      <if test="todayStart != null">
+        today_start = #{todayStart,jdbcType=DOUBLE},
+      </if>
+      <if test="nowAlterPrice != null">
+        now_alter_price = #{nowAlterPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="todayLowPrice != null">
+        today_low_price = #{todayLowPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="todayHightPrice != null">
+        today_hight_price = #{todayHightPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="nowAlterPercent != null">
+        now_alter_percent = #{nowAlterPercent,jdbcType=DOUBLE},
+      </if>
+      <if test="dealNum != null">
+        deal_num = #{dealNum,jdbcType=DOUBLE},
+      </if>
+      <if test="dealMoney != null">
+        deal_money = #{dealMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="bidsPrice != null">
+        bids_price = #{bidsPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="salePrice != null">
+        sale_price = #{salePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="saleProportion != null">
+        sale_proportion = #{saleProportion,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.scott.shares.entity.PrimaryData">
+    update primary_data
+    set share_code = #{shareCode,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      now_price = #{nowPrice,jdbcType=DOUBLE},
+      last_end = #{lastEnd,jdbcType=DOUBLE},
+      today_start = #{todayStart,jdbcType=DOUBLE},
+      now_alter_price = #{nowAlterPrice,jdbcType=DOUBLE},
+      today_low_price = #{todayLowPrice,jdbcType=DOUBLE},
+      today_hight_price = #{todayHightPrice,jdbcType=DOUBLE},
+      now_alter_percent = #{nowAlterPercent,jdbcType=DOUBLE},
+      deal_num = #{dealNum,jdbcType=DOUBLE},
+      deal_money = #{dealMoney,jdbcType=DOUBLE},
+      bids_price = #{bidsPrice,jdbcType=DOUBLE},
+      sale_price = #{salePrice,jdbcType=DOUBLE},
+      sale_proportion = #{saleProportion,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

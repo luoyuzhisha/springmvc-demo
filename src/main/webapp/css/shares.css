@@ -1,0 +1,114 @@
+@charset "utf-8";
+/* CSS Document */
+
+.title-time {
+	font-size: 0.8em;
+	color:#666;
+}
+.share-body {
+	margin-top: 20px;
+}
+.progress-bar {
+	color:#000;
+}
+.height-40 {
+    height:30px;
+    margin-top:10px;
+}
+.height-80 {
+    height:80px;
+    margin-top:10px;
+}
+
+.margin-bottom-10{
+    margin-bottom: 10px;
+}
+.height-28 {
+    height:28px;
+}
+.shares_up {
+    color:red;
+}
+.shares_down {
+    color:green;
+}
+#deal_share_mode_buy_price, #deal_share_mode_buy_count {
+    width: 50%;
+}
+body, .panel-default > .panel-heading {
+    background-color: black;
+    color: green;
+}
+.panel-default, .panel-heading ,.panel-default > .panel-heading {
+    border-color: #555;
+    background-color: black;
+}
+.hide {
+	display:none;
+}
+.white {
+	color: #fff;
+}
+.yellow {
+	color: yellow;
+}
+.red {
+	color: red;
+}
+.btn-in-div {
+	padding: 1px 6px; 
+}
+.min-height-40 {
+    min-height: 40px;
+    border-bottom: dotted 1px #020;
+    padding-top: 8px;
+    margin-left: 5px;
+} 
+
+.long-break {
+    width: 230px;
+    overflow-wrap: break-word;
+    margin-right: 10px;
+}
+.error-content {
+    background: red;
+    text-align: center;
+    font-size: 30px;
+}
+.showHand {
+    cursor:hand;
+    cursor: pointer;
+}
+.bodyDiv {
+    width: 710px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.flashDiv {
+    margin-top:3px;
+}
+.padding-top-10 {
+    padding-top:10px;
+}
+.blueBreathe{ position:relative; width:10px; height:10px; margin-top: 5px; margin-right: 10px; padding: 0 4px; line-height:40px; border:1px solid #2b92d4; border-radius:5px; color:#fff; font-size:20px; text-align:center; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,.3); overflow:hidden; background-image: -webkit-gradient(linear, left top, left bottom, from(#6cc3fe), to(#21a1d0));
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-name: blueBreatheFlash;
+    -webkit-animation-duration: 500ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+}
+@-webkit-keyframes blueBreatheFlash {
+    0% { opacity: .2; box-shadow:0 1px 2px rgba(255,255,255,0.1);}
+    100% { opacity: 1; border:1px solid rgba(59,235,235,1); box-shadow:0 1px 30px rgba(59,255,255,1);}
+}
+.redBreathe{ position:relative; width:10px; height:10px; margin-top: 5px; margin-right: 10px; padding: 0 4px; line-height:40px; border:1px solid #F30811; border-radius:5px; color:#fff; font-size:20px; text-align:center; cursor:pointer; box-shadow:0 1px 2px rgba(0,0,0,.3); overflow:hidden; background-image: -webkit-gradient(linear, left top, left bottom, from(#F093A6), to(#F1063F));
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-name: redBreatheFlash;
+    -webkit-animation-duration: 500ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+}
+@-webkit-keyframes redBreatheFlash {
+    0% { opacity: .2; box-shadow:0 1px 2px rgba(255,255,255,0.1);}
+    100% { opacity: 1; border:1px solid rgba(255,100,100,1); box-shadow:0 1px 30px rgba(255,170,170,1);}
+}

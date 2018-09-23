@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scott.shares.mapper.CapitalDataCountMapper" >
+  <resultMap id="BaseResultMap" type="com.scott.shares.entity.CapitalDataCount" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="share_code" property="shareCode" jdbcType="VARCHAR" />
+    <result column="first_update_time" property="firstUpdateTime" jdbcType="BIGINT" />
+    <result column="first_update_table_name" property="firstUpdateTableName" jdbcType="VARCHAR" />
+    <result column="first_update_id" property="firstUpdateId" jdbcType="BIGINT" />
+    <result column="last_update_time" property="lastUpdateTime" jdbcType="BIGINT" />
+    <result column="last_update_table_name" property="lastUpdateTableName" jdbcType="VARCHAR" />
+    <result column="last_update_id" property="lastUpdateId" jdbcType="BIGINT" />
+    <result column="total" property="total" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, share_code, first_update_time, first_update_table_name, first_update_id, last_update_time, 
+    last_update_table_name, last_update_id, total
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.scott.shares.entity.CapitalDataCountExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from capital_data_count
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limit gt 0" >
+      limit #{limit}
+    </if>
+    <if test="offset gt 0" >
+      offset #{offset}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from capital_data_count
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from capital_data_count
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.scott.shares.entity.CapitalDataCountExample" >
+    delete from capital_data_count
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.scott.shares.entity.CapitalDataCount" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into capital_data_count (share_code, first_update_time, first_update_table_name, 
+      first_update_id, last_update_time, last_update_table_name, 
+      last_update_id, total)
+    values (#{shareCode,jdbcType=VARCHAR}, #{firstUpdateTime,jdbcType=BIGINT}, #{firstUpdateTableName,jdbcType=VARCHAR}, 
+      #{firstUpdateId,jdbcType=BIGINT}, #{lastUpdateTime,jdbcType=BIGINT}, #{lastUpdateTableName,jdbcType=VARCHAR}, 
+      #{lastUpdateId,jdbcType=BIGINT}, #{total,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.scott.shares.entity.CapitalDataCount" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into capital_data_count
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="shareCode != null" >
+        share_code,
+      </if>
+      <if test="firstUpdateTime != null" >
+        first_update_time,
+      </if>
+      <if test="firstUpdateTableName != null" >
+        first_update_table_name,
+      </if>
+      <if test="firstUpdateId != null" >
+        first_update_id,
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time,
+      </if>
+      <if test="lastUpdateTableName != null" >
+        last_update_table_name,
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="shareCode != null" >
+        #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="firstUpdateTime != null" >
+        #{firstUpdateTime,jdbcType=BIGINT},
+      </if>
+      <if test="firstUpdateTableName != null" >
+        #{firstUpdateTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstUpdateId != null" >
+        #{firstUpdateId,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTableName != null" >
+        #{lastUpdateTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateId != null" >
+        #{lastUpdateId,jdbcType=BIGINT},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.scott.shares.entity.CapitalDataCountExample" resultType="java.lang.Integer" >
+    select count(*) from capital_data_count
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update capital_data_count
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.shareCode != null" >
+        share_code = #{record.shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstUpdateTime != null" >
+        first_update_time = #{record.firstUpdateTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.firstUpdateTableName != null" >
+        first_update_table_name = #{record.firstUpdateTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firstUpdateId != null" >
+        first_update_id = #{record.firstUpdateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.lastUpdateTime != null" >
+        last_update_time = #{record.lastUpdateTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.lastUpdateTableName != null" >
+        last_update_table_name = #{record.lastUpdateTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateId != null" >
+        last_update_id = #{record.lastUpdateId,jdbcType=BIGINT},
+      </if>
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update capital_data_count
+    set id = #{record.id,jdbcType=BIGINT},
+      share_code = #{record.shareCode,jdbcType=VARCHAR},
+      first_update_time = #{record.firstUpdateTime,jdbcType=BIGINT},
+      first_update_table_name = #{record.firstUpdateTableName,jdbcType=VARCHAR},
+      first_update_id = #{record.firstUpdateId,jdbcType=BIGINT},
+      last_update_time = #{record.lastUpdateTime,jdbcType=BIGINT},
+      last_update_table_name = #{record.lastUpdateTableName,jdbcType=VARCHAR},
+      last_update_id = #{record.lastUpdateId,jdbcType=BIGINT},
+      total = #{record.total,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.scott.shares.entity.CapitalDataCount" >
+    update capital_data_count
+    <set >
+      <if test="shareCode != null" >
+        share_code = #{shareCode,jdbcType=VARCHAR},
+      </if>
+      <if test="firstUpdateTime != null" >
+        first_update_time = #{firstUpdateTime,jdbcType=BIGINT},
+      </if>
+      <if test="firstUpdateTableName != null" >
+        first_update_table_name = #{firstUpdateTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="firstUpdateId != null" >
+        first_update_id = #{firstUpdateId,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTime != null" >
+        last_update_time = #{lastUpdateTime,jdbcType=BIGINT},
+      </if>
+      <if test="lastUpdateTableName != null" >
+        last_update_table_name = #{lastUpdateTableName,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateId != null" >
+        last_update_id = #{lastUpdateId,jdbcType=BIGINT},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.scott.shares.entity.CapitalDataCount" >
+    update capital_data_count
+    set share_code = #{shareCode,jdbcType=VARCHAR},
+      first_update_time = #{firstUpdateTime,jdbcType=BIGINT},
+      first_update_table_name = #{firstUpdateTableName,jdbcType=VARCHAR},
+      first_update_id = #{firstUpdateId,jdbcType=BIGINT},
+      last_update_time = #{lastUpdateTime,jdbcType=BIGINT},
+      last_update_table_name = #{lastUpdateTableName,jdbcType=VARCHAR},
+      last_update_id = #{lastUpdateId,jdbcType=BIGINT},
+      total = #{total,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

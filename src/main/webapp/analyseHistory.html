@@ -1,0 +1,117 @@
+<html>
+<head>
+<title>数据分析-- 根据最大最小值</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="js/jquery.min.js"></script>
+<style type="text/css">
+    .tdBorder {
+        border-bottom: 1px solid #bbb;
+        height: 30px;
+    }
+    .backColor {
+        background-color: #ddd;
+    }
+    .focusBackColor {
+        background-color: #ff0;
+    }
+    .todayStart {
+    }
+    .todayEnd {
+    }
+    .maxPrice {
+    }
+    .minPrice {
+    }
+    .todayStartT {
+    }
+    .todayEndT {
+    }
+    .maxPriceT {
+    }
+    .minPriceT {
+    }
+    .redText {
+    	color: red;
+    }
+</style>
+</head>
+<body>
+	<div id="body_div">
+	   <table id="analyse_table" border="0" cellspacing="0" cellpadding="0">
+	       <thead style="position: fixed; background-color: white; height: 29px; top: 0px; z-index: 3; padding-top: 15px;">
+		       <tr id="table_head">
+		           <th width="40px">ID</th>
+		           <th width="100px">股票代码</th>
+		           <th width="150px">更新时间</th>
+		           <th width="60px">开盘价</th>
+		           <th width="60px">最高价</th>
+		           <th width="60px">最低价</th>
+		           <th width="60px">收盘价</th>
+		           <th width="60px">trend</th>
+		           <th width="60px">maxTrend</th>
+		           <th width="60px">2开盘价</th>
+	               <th width="60px">2最高价</th>
+	               <th width="60px">2最低价</th>
+	               <th width="60px">trend2</th>
+		           <th width="120px">今高/今低</th>
+		           <th width="120px">今收/今低</th>
+		           <th width="120px">明开/今低</th>
+		           <th width="120px">明高/今低</th>
+		           <th width="60px">老算法</th>
+		           <th width="60px">新算法</th>
+		           <th width="120px">买/预/大</th>
+		       </tr>
+	       </thead>
+	       <tbody id="table_body" style="text-align: center;position: absolute;top: 40px;z-index: 1;">
+	       </tbody>
+	       <tfoot>
+	           <tr>
+	               <td width="1020px" colspan="9" id="td_statistics"></td>
+	               <td width="60px" id="more_1"></td>
+	               <td width="60px" id="more_2"></td>
+	               <td width="60px" id="more_3"></td>
+	               <td width="120px" id="more_4"></td>
+	               <td width="60px" id="more_5"></td>
+	               <td width="60px" id="more_6"></td>
+	               <td width="60px" id="more_7"></td>
+	               <td width="150px"></td>
+                   <td width="60px"></td>
+                   <td width="60px"></td>
+                   <td width="60px"></td>
+	           </tr>
+	           <tr>
+                   <td width="1020px" colspan="9" id="td_statistics_15"></td>
+                   <td width="60px" id="more_1_15"></td>
+                   <td width="60px" id="more_2_15"></td>
+                   <td width="60px" id="more_3_15"></td>
+                   <td width="120px" id="more_4_15"></td>
+                   <td width="60px" id="more_5_15"></td>
+                   <td width="60px" id="more_6_15"></td>
+                   <td width="60px" id="more_7_15"></td>
+                   <td width="150px"></td>
+                   <td width="60px"></td>
+                   <td width="60px"></td>
+                   <td width="60px"></td>
+               </tr>
+               <tr>
+                   <td width="1020px" colspan="9" id="td_statistics_20"></td>
+                   <td width="60px" id="more_1_20"></td>
+                   <td width="60px" id="more_2_20"></td>
+                   <td width="60px" id="more_3_20"></td>
+                   <td width="120px" id="more_4_20"></td>
+                   <td width="60px" id="more_5_20"></td>
+                   <td width="60px" id="more_6_20"></td>
+                   <td width="60px" id="more_7_20"></td>
+                   <td width="150px"></td>
+                   <td width="60px"></td>
+                   <td width="60px"></td>
+                   <td width="60px"></td>
+               </tr>
+	       </tfoot>
+	   </table>
+	</div>
+	<div id="statistics">
+	</div>
+</body>
+<script src="js/analyseHistory.js"></script>
+</html>

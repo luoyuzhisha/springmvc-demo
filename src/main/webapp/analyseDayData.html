@@ -1,0 +1,118 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>数据分析</title>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/flotr2-main.js"></script>
+<style type="text/css">
+	.clear {
+		clear: both;
+	}
+    .buysTable {
+    	font-size: 14px;
+    }
+    .buysTable tr, buysTable th {
+    	border-bottom: 1px solid #bbb;
+    }
+    .buysTable td {
+    	text-align: center;
+    }
+    .hideBuyTr {
+    	display: none;
+    }
+    .backColor {
+        background-color: #ddd;
+    }
+    .focusBackColor {
+        background-color: #ff0;
+    }
+    .analyseChart {
+        width: 1200px;
+        height: 800px;
+        float: left;
+        margin: 20px;
+        float: left;
+    }
+    #buys_div {
+        padding: 10px 0;
+        width: 450px;
+        float: left;
+    }
+    #chart_div {
+    	width: auto;
+    	float: left;
+    }
+    .analyseDayDiv {
+    
+    }
+    #analyseTableHeadDiv {
+        padding-left: 30px;
+        color: red;
+    }
+    .analyseDayTable {
+        border: 1px solid #bbb;
+    }
+    .analyseDayTable td {
+        text-align: center;
+        border-bottom: 1px solid #bbb;
+    }
+</style>
+<body>
+    <div class="">
+    	<div id="buys_div">
+	    	<table class="buysTable">
+	    		<thead>
+	    			<tr>
+	    				<th width="80">代码</th>
+	    				<th width="100">日期</th>
+	    				<th width="50">开盘</th>
+	    				<th width="50">最低</th>
+	    				<th width="50">最高</th>
+	    				<th width="50">收盘</th>
+	    				<th width="50">Trend</th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+	    			<tr class="hideBuyTr">
+	    				<td class="shareCode"></td>
+	    				<td class="updateTime"></td>
+	    				<td class="todayStart"></td>
+	    				<td class="minPrice"></td>
+	    				<td class="maxPrice"></td>
+	    				<td class="todayEnd"></td>
+	    				<td class="trend"></td>
+	    				<input type="hidden" value="0" class="longUpdateTime" />
+	    			</tr>
+	    		</tbody>
+	    	</table>
+	    </div>
+	    <div id="chart_div">
+	        <div id="analyse_chart" class="analyseChart">
+	        </div>
+	        <div id="analyseDayTableDiv" class="analyseDayDiv">
+		        <div id="analyseTableHeadDiv"></div>
+		        <table class="analyseDayTable">
+		            <thead>
+		                <th width="150">时间</th>
+		                <th width="80">开盘</th>
+		                <th width="80">最高</th>
+		                <th width="80">最低</th>
+		                <th width="80">收盘</th>
+		                <th width="150">交易量</th>
+		                <th width="80">Trend</th>
+		                <th width="80">MaxTrend</th>
+		                <th width="150">MaxTrendTime</th>
+		                <th width="150">最低时间</th>
+		            </thead>
+		            <tbody id="analyseDayTableBody">
+		            </tbody>
+		        </table>
+		    </div>
+		    <div id="show_share_mode_flash" class="flashDiv">
+		      <span></span>
+		    </div>
+	    </div>
+	    <div class="clear"></div>
+    </div>
+</body>
+<script src="js/analyseDayData.js"></script>
+</html>

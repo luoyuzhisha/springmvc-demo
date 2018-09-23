@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="Mysql" defaultModelType="flat">
+
+        
+        <plugin type="org.mybatis.generator.plugins.GeneratedXmlFileOverwritePlugin" />
+        <plugin type="org.mybatis.generator.plugins.PaginationMysqlPlugin" />
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection
+            driverClass="${driverClassName}"
+            connectionURL="${url}"
+            userId="${username}"
+            password="${password}">
+        </jdbcConnection>
+
+      <!--  <javaModelGenerator targetPackage="${modelPackage}"
+                            targetProject="${src_main_java}">
+        &lt;!&ndash;    <property name="enableSubPackages" value="false" />
+            <property name="trimStrings" value="true" />&ndash;&gt;
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="${sqlMapperPackage}"
+                         targetProject="${src_main_resources}">
+            <property name="enableSubPackages" value="false" />
+
+        </sqlMapGenerator>
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="${mapperPackage}" targetProject="${src_main_java}">
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+        <table tableName="%" >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>-->
+
+        <javaModelGenerator targetPackage="com.scott.shares.entity" targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="com.scott.shares.mapper"  targetProject="src-gen/main/resources/mapper"/>
+
+        <javaClientGenerator targetPackage="com.scott.shares.mapper" targetProject="src/main/java" type="XMLMAPPER" />
+
+        <!-- 
+        <table tableName="buy">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="day_data">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="exception_log">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="money">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="primary_data">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="primary_data_count">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="shares">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="work_day">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="capital_data">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+        <table tableName="capital_data_count">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+         -->
+    </context>
+</generatorConfiguration>

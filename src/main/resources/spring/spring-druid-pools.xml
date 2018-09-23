@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-4.2.xsd
+        ">
+
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>file:/data/program/shares/config/dbs.properties</value>
+        </property>
+    </bean>
+
+    <bean id="dataSource_0" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${driverClassName_0}" />
+        <property name="url" value="${url_0}" />
+        <property name="username" value="${username_0}" />
+        <property name="password" value="${password_0}" />
+
+        <property name="initialSize" value="${minActive_0}" />
+        <property name="minIdle" value="${minActive_0}" />
+        <property name="maxActive" value="${maxActive_0}" />
+        
+        <property name="maxWait" value="50000" />
+
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        <!-- connection default transaction isolation 1:read uncommited 2:read commited 4:repeatable read 8:serialzation -->
+        <property name="defaultTransactionIsolation" value = "2" />
+
+        <!-- 超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="true" />
+        <!-- 超时时间；单位为秒。180秒=3分钟 -->
+        <property name="removeAbandonedTimeout" value="1800" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true" />
+
+        <property name="validationQuery" value="SELECT 'x'" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="true" />
+        <property name="testOnReturn" value="false" />
+
+        <property name="poolPreparedStatements" value="false" />
+    </bean>
+    
+    <bean id="dataSource_1" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${driverClassName_1}" />
+        <property name="url" value="${url_1}" />
+        <property name="username" value="${username_1}" />
+        <property name="password" value="${password_1}" />
+
+        <property name="initialSize" value="${minActive_1}" />
+        <property name="minIdle" value="${minActive_1}" />
+        <property name="maxActive" value="${maxActive_1}" />
+        
+        <property name="maxWait" value="50000" />
+
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        <!-- connection default transaction isolation 1:read uncommited 2:read commited 4:repeatable read 8:serialzation -->
+        <property name="defaultTransactionIsolation" value = "2" />
+
+        <!-- 超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="true" />
+        <!-- 超时时间；单位为秒。180秒=3分钟 -->
+        <property name="removeAbandonedTimeout" value="1800" />
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true" />
+
+        <property name="validationQuery" value="SELECT 'x'" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="true" />
+        <property name="testOnReturn" value="false" />
+
+        <property name="poolPreparedStatements" value="false" />
+    </bean>
+    
+    <!-- <bean id="dataSource_2" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${driverClassName_2}" />
+        <property name="url" value="${url_2}" />
+        <property name="username" value="${username_2}" />
+        <property name="password" value="${password_2}" />
+
+        <property name="initialSize" value="${minActive_2}" />
+        <property name="minIdle" value="${minActive_2}" />
+        <property name="maxActive" value="${maxActive_2}" />
+        
+        <property name="maxWait" value="50000" />
+
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        connection default transaction isolation 1:read uncommited 2:read commited 4:repeatable read 8:serialzation
+        <property name="defaultTransactionIsolation" value = "2" />
+
+        超过时间限制是否回收
+        <property name="removeAbandoned" value="true" />
+        超时时间；单位为秒。180秒=3分钟
+        <property name="removeAbandonedTimeout" value="1800" />
+        关闭abanded连接时输出错误日志
+        <property name="logAbandoned" value="true" />
+
+        <property name="validationQuery" value="SELECT 'x'" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="true" />
+        <property name="testOnReturn" value="false" />
+
+        <property name="poolPreparedStatements" value="false" />
+    </bean> -->
+    
+    <util:map id="dataSources">  
+        <entry key="dataSource_0" value-ref="dataSource_0"/>  
+        <entry key="dataSource_1" value-ref="dataSource_1"/>  
+        <!-- <entry key="dataSource_2" value-ref="dataSource_2"/>   -->
+    </util:map>  
+    <bean id="dataSourceLookup" class="org.springframework.jdbc.datasource.lookup.MapDataSourceLookup">  
+        <constructor-arg>  
+            <ref bean="dataSources"/>  
+        </constructor-arg>  
+    </bean>  
+    <bean id="dataSource" class="com.scott.shares.datasource.PrototypeLoadBalanceDataSource">  
+        <property name="defaultTargetDataSource" ref="dataSource_0"/>  
+        <property name="targetDataSources" ref="dataSources"/>  
+        <property name="dataSourceLookup" ref="dataSourceLookup"/>
+    </bean>
+</beans>
